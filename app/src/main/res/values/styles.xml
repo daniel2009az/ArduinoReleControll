@@ -4,12 +4,21 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
     </style>
 
     <style name="AppThemeNoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
+    </style>
+
+    <style name="CustomActivityAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_up</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_down</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_down</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_up</item>
     </style>
 
     <style name="dttProgressBar" parent="Widget.AppCompat.ProgressBar.Horizontal">
