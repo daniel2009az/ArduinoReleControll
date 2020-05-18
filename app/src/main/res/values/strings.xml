@@ -3,6 +3,7 @@
     <string name="bluetooth_error">Este app não pode funcionar se o Bluetooth estiver desativado</string>
     <string name="warning_message">Atenção!</string>
     <string name="bluetooth_is_disabled">Este app precisa do Bluetooth ativado para funcionar corretamente</string>
+    <string name="not_connected">Não foi possível conectar-se ao dispositivo</string>
     <string name="exit_button">Sair</string>
     <string name="hashtag">#</string>
     <string name="activate">Ativar/Editar</string>

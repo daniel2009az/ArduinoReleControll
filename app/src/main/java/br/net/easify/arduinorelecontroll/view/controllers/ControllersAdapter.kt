@@ -5,12 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.net.easify.arduinorelecontroll.R
 import br.net.easify.arduinorelecontroll.model.DeviceRelay
 
-class ControllersAdapter(private var onSwitchRelay: ControllersAdapter.OnSwitchRelay)
+class ControllersAdapter(private var onSwitchRelay: OnSwitchRelay)
     : RecyclerView.Adapter<ControllersAdapter.DeviceRelayHolder>() {
 
     interface OnSwitchRelay {
@@ -19,8 +20,14 @@ class ControllersAdapter(private var onSwitchRelay: ControllersAdapter.OnSwitchR
     }
 
     private var items: ArrayList<DeviceRelay> = ArrayList()
+    private var isDeviceConnected = false;
+    fun setDeviceConnected(status: Boolean) {
+        isDeviceConnected = status
+        notifyDataSetChanged()
+    }
 
-    class DeviceRelayHolder(itemView: View, onSwitchRelayListener: ControllersAdapter.OnSwitchRelay) :
+
+    class DeviceRelayHolder(itemView: View, onSwitchRelayListener: OnSwitchRelay) :
         RecyclerView.ViewHolder(itemView) {
 
         lateinit var relay: DeviceRelay
@@ -28,6 +35,8 @@ class ControllersAdapter(private var onSwitchRelay: ControllersAdapter.OnSwitchR
         var deviceName: TextView = itemView.findViewById(R.id.deviceName)
         var switchButton: ImageButton = itemView.findViewById(R.id.switchButton)
         var editController: TextView = itemView.findViewById(R.id.editController)
+        var progressIndicator: ProgressBar = itemView.findViewById(R.id.progressIndicator)
+
 
         init {
             switchButton.setOnClickListener {
@@ -66,7 +75,17 @@ class ControllersAdapter(private var onSwitchRelay: ControllersAdapter.OnSwitchR
             } else {
                 holder.switchButton.setImageResource(R.drawable.check)
             }
+
+            if ( isDeviceConnected ) {
+                holder.switchButton.visibility = View.VISIBLE
+                holder.progressIndicator.visibility = View.GONE
+            } else {
+                holder.switchButton.visibility = View.GONE
+                holder.progressIndicator.visibility = View.VISIBLE
+            }
         } else {
+            holder.switchButton.visibility = View.VISIBLE
+            holder.progressIndicator.visibility = View.GONE
             holder.switchButton.setImageResource(R.drawable.negative)
         }
     }

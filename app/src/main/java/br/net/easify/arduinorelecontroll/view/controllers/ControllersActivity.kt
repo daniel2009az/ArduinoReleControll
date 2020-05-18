@@ -3,12 +3,15 @@ package br.net.easify.arduinorelecontroll.view.controllers
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import br.net.easify.arduinorelecontroll.R
 import br.net.easify.arduinorelecontroll.model.DeviceRelay
+import br.net.easify.arduinorelecontroll.utils.CustomAlertDialog
 import br.net.easify.arduinorelecontroll.view.main.MainActivity
 import br.net.easify.arduinorelecontroll.view.updatecontroller.UpdateControllerActivity
 import br.net.easify.arduinorelecontroll.viewmodel.controllers.ControllersViewModel
@@ -22,6 +25,8 @@ class ControllersActivity : AppCompatActivity(), ControllersAdapter.OnSwitchRela
     private lateinit var deviceAddress: String
     private lateinit var adapter: ControllersAdapter
 
+    private var alerta: AlertDialog? = null
+
     private val controllersObserver = Observer { controllers: ArrayList<DeviceRelay> ->
         controllers.let {
             this.adapter.updateData(it)
@@ -30,7 +35,18 @@ class ControllersActivity : AppCompatActivity(), ControllersAdapter.OnSwitchRela
 
     private val bluetoothConnectionObserver = Observer { isConnected: Boolean  ->
         isConnected.let {
-
+            adapter.setDeviceConnected(true)
+            if ( !it ) {
+                alerta = CustomAlertDialog.show(this@ControllersActivity, getString(R.string.warning_message),
+                    getString(R.string.not_connected),
+                    getString(R.string.exit_button), View.OnClickListener {
+                        alerta!!.dismiss()
+                        finish()
+                    }
+                )
+            } else {
+                layoutProgress.visibility = View.GONE
+            }
         }
     }
 
@@ -43,6 +59,8 @@ class ControllersActivity : AppCompatActivity(), ControllersAdapter.OnSwitchRela
         setContentView(R.layout.activity_controllers)
 
         deviceAddress = intent.getStringExtra(MainActivity.extraDeviceAddress)
+
+        deviceName.text = "Conectando a " + deviceAddress
 
         viewModel = ViewModelProviders.of(
             this,
@@ -63,28 +81,20 @@ class ControllersActivity : AppCompatActivity(), ControllersAdapter.OnSwitchRela
         viewModel.getControllers()
     }
 
-    override fun onStart() {
-        super.onStart()
-        viewModel.connectDevice()
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        viewModel.connectDevice()
-    }
-
     override fun onResume() {
         super.onResume()
+        adapter.setDeviceConnected(false)
+        layoutProgress.visibility = View.VISIBLE
+        viewModel.connectDevice()
+    }
+
+    override fun onPause() {
+        super.onPause()
         viewModel.disconnectDevice()
     }
 
     override fun onStop() {
         super.onStop()
-        viewModel.disconnectDevice()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
         viewModel.disconnectDevice()
     }
 

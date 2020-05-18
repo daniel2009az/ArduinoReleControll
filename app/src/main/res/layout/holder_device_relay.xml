@@ -42,7 +42,16 @@
                     android:layout_height="50dp"
                     android:background="@null"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/check" />
+                    android:src="@drawable/check"
+                    android:visibility="gone"/>
+
+                <ProgressBar
+                    android:id="@+id/progressIndicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:indeterminate="true"
+                    android:visibility="visible"/>
             </LinearLayout>
 
             <LinearLayout
