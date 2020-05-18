@@ -2,10 +2,10 @@ package br.net.easify.arduinorelecontroll.di.component
 
 import br.net.easify.arduinorelecontroll.di.module.AppModule
 import br.net.easify.arduinorelecontroll.di.module.DatabaseModule
-import br.net.easify.arduinorelecontroll.viewmodel.ControllersViewModel
-import br.net.easify.arduinorelecontroll.viewmodel.MainViewModel
-import br.net.easify.arduinorelecontroll.viewmodel.SplashScreenViewModel
-import br.net.easify.arduinorelecontroll.viewmodel.UpdateControllerViewModel
+import br.net.easify.arduinorelecontroll.viewmodel.controllers.ControllersViewModel
+import br.net.easify.arduinorelecontroll.viewmodel.main.MainViewModel
+import br.net.easify.arduinorelecontroll.viewmodel.splashscreen.SplashScreenViewModel
+import br.net.easify.arduinorelecontroll.viewmodel.updatecontroller.UpdateControllerViewModel
 import dagger.Component
 import javax.inject.Singleton
 

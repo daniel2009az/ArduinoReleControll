@@ -1,4 +1,4 @@
-package br.net.easify.arduinorelecontroll.viewmodel
+package br.net.easify.arduinorelecontroll.viewmodel.splashscreen
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

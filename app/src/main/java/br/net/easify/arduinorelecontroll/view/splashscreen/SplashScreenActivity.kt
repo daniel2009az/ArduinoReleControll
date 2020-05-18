@@ -10,8 +10,7 @@ import android.view.WindowManager
 import androidx.lifecycle.ViewModelProviders
 import br.net.easify.arduinorelecontroll.R
 import br.net.easify.arduinorelecontroll.view.main.MainActivity
-import br.net.easify.arduinorelecontroll.viewmodel.MainViewModel
-import br.net.easify.arduinorelecontroll.viewmodel.SplashScreenViewModel
+import br.net.easify.arduinorelecontroll.viewmodel.splashscreen.SplashScreenViewModel
 
 class SplashScreenActivity : AppCompatActivity(), Runnable {
 

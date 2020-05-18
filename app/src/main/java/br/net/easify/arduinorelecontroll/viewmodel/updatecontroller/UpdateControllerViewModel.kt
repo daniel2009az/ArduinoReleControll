@@ -1,11 +1,9 @@
-package br.net.easify.arduinorelecontroll.viewmodel
+package br.net.easify.arduinorelecontroll.viewmodel.updatecontroller
 
 import android.app.Application
-import android.bluetooth.BluetoothDevice
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import br.net.easify.arduinorelecontroll.database.AppDatabase
-import br.net.easify.arduinorelecontroll.database.model.Relay
 import br.net.easify.arduinorelecontroll.di.component.DaggerDatabaseComponent
 import br.net.easify.arduinorelecontroll.di.module.AppModule
 import br.net.easify.arduinorelecontroll.model.DeviceRelay

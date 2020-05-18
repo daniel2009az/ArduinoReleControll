@@ -1,4 +1,4 @@
-package br.net.easify.arduinorelecontroll.viewmodel
+package br.net.easify.arduinorelecontroll.viewmodel.controllers
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
@@ -8,6 +8,9 @@ class ControllersViewModelFactory(private val application: Application,
                                   private val deviceAddress: String) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return ControllersViewModel(application, deviceAddress) as T
+        return ControllersViewModel(
+            application,
+            deviceAddress
+        ) as T
     }
 }

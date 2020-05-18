@@ -1,4 +1,4 @@
-package br.net.easify.arduinorelecontroll.viewmodel
+package br.net.easify.arduinorelecontroll.viewmodel.updatecontroller
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
@@ -9,6 +9,9 @@ class UpdateControllerViewModelFactory(private val application: Application,
                                        private val deviceRelay: DeviceRelay) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return UpdateControllerViewModel(application, deviceRelay) as T
+        return UpdateControllerViewModel(
+            application,
+            deviceRelay
+        ) as T
     }
 }

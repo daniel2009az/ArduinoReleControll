@@ -13,8 +13,8 @@ import br.net.easify.arduinorelecontroll.R
 import br.net.easify.arduinorelecontroll.databinding.ActivityUpdateControllerBinding
 import br.net.easify.arduinorelecontroll.model.DeviceRelay
 import br.net.easify.arduinorelecontroll.view.controllers.ControllersActivity
-import br.net.easify.arduinorelecontroll.viewmodel.UpdateControllerViewModel
-import br.net.easify.arduinorelecontroll.viewmodel.UpdateControllerViewModelFactory
+import br.net.easify.arduinorelecontroll.viewmodel.updatecontroller.UpdateControllerViewModel
+import br.net.easify.arduinorelecontroll.viewmodel.updatecontroller.UpdateControllerViewModelFactory
 
 class UpdateControllerActivity : AppCompatActivity() {
 
@@ -40,7 +40,10 @@ class UpdateControllerActivity : AppCompatActivity() {
 
         viewModel = ViewModelProviders.of(
             this,
-            UpdateControllerViewModelFactory(application, deviceRelay)
+            UpdateControllerViewModelFactory(
+                application,
+                deviceRelay
+            )
         ).get(UpdateControllerViewModel::class.java)
 
         viewModel.relay.observe(this, relayObserver)

@@ -1,4 +1,4 @@
-package br.net.easify.arduinorelecontroll.viewmodel
+package br.net.easify.arduinorelecontroll.viewmodel.main
 
 import android.app.Application
 import android.bluetooth.BluetoothAdapter
@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import br.net.easify.arduinorelecontroll.database.AppDatabase
 import br.net.easify.arduinorelecontroll.di.component.DaggerDatabaseComponent
 import br.net.easify.arduinorelecontroll.di.module.AppModule
+import br.net.easify.arduinorelecontroll.services.BluetoothService
 import javax.inject.Inject
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
@@ -17,6 +18,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     @Inject
     lateinit var database: AppDatabase
+
+    @Inject
+    lateinit var bluetoothService: BluetoothService
 
     init {
         DaggerDatabaseComponent.builder()
@@ -28,7 +32,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun getBluetoothAdapters() {
-        bluetoothAdapter.value = BluetoothAdapter.getDefaultAdapter()
+        bluetoothAdapter.value = bluetoothService.getDefaultAdapter()
     }
 
     fun getPairedDeviceList(adapter: BluetoothAdapter) {

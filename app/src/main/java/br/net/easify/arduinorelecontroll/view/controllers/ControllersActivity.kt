@@ -1,7 +1,6 @@
 package br.net.easify.arduinorelecontroll.view.controllers
 
 import android.app.Activity
-import android.bluetooth.BluetoothDevice
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -12,8 +11,8 @@ import br.net.easify.arduinorelecontroll.R
 import br.net.easify.arduinorelecontroll.model.DeviceRelay
 import br.net.easify.arduinorelecontroll.view.main.MainActivity
 import br.net.easify.arduinorelecontroll.view.updatecontroller.UpdateControllerActivity
-import br.net.easify.arduinorelecontroll.viewmodel.ControllersViewModel
-import br.net.easify.arduinorelecontroll.viewmodel.ControllersViewModelFactory
+import br.net.easify.arduinorelecontroll.viewmodel.controllers.ControllersViewModel
+import br.net.easify.arduinorelecontroll.viewmodel.controllers.ControllersViewModelFactory
 import kotlinx.android.synthetic.main.activity_controllers.*
 
 class ControllersActivity : AppCompatActivity(), ControllersAdapter.OnSwitchRelay {
@@ -29,6 +28,12 @@ class ControllersActivity : AppCompatActivity(), ControllersAdapter.OnSwitchRela
         }
     }
 
+    private val bluetoothConnectionObserver = Observer { isConnected: Boolean  ->
+        isConnected.let {
+
+        }
+    }
+
     companion object {
         val relayExtra: String = "relayExtra"
     }
@@ -41,7 +46,10 @@ class ControllersActivity : AppCompatActivity(), ControllersAdapter.OnSwitchRela
 
         viewModel = ViewModelProviders.of(
             this,
-            ControllersViewModelFactory(application, deviceAddress)
+            ControllersViewModelFactory(
+                application,
+                deviceAddress
+            )
         ).get(ControllersViewModel::class.java)
 
         adapter = ControllersAdapter(this)
@@ -50,8 +58,34 @@ class ControllersActivity : AppCompatActivity(), ControllersAdapter.OnSwitchRela
         deviceRelays.layoutManager = gridLayoutManager
 
         viewModel.controllers.observe(this, controllersObserver)
+        viewModel.bluetoothConnected.observe(this, bluetoothConnectionObserver)
 
         viewModel.getControllers()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.connectDevice()
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        viewModel.connectDevice()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.disconnectDevice()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.disconnectDevice()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.disconnectDevice()
     }
 
     override fun onSwitchRelay(relay: DeviceRelay) {
