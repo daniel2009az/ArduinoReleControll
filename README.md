@@ -6,7 +6,7 @@ A finalidade desse aplicativo é conectar-se com um dispositivo Bluetooth ligado
 
 ## O APP
 
-O app se conecta com o Bluetooth e envia comandos os quais são interpretados pelo Arduino e enviados para o relé. Estes comandos podem ser configuráveis e previ o uso de um módulo com até 8 relés.
+O app conecta-se ao Bluetooth e envia comandos os quais são interpretados pelo Arduino e enviados para o relé. Estes comandos podem ser configuráveis. Previ o uso de um módulo com até 8 relés.
 
 ![](imgs/rele-bt2.png)
 
